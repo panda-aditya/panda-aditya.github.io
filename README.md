@@ -28,7 +28,10 @@ The site is intentionally kept lightweight and fast, with a focus on clarity and
 
 ## Project structure
 ├── index.html # Main website file
+
 ├── styles.css # Global styles
+
 ├── script.js # JavaScript for interactivity
+
 └── README.md # Project documentation
 
