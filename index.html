@@ -1,66 +1,114 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Aditya Panda — Developer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Do you want to be my girlfriend?</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- page styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <h1 class="name">Aditya Panda</h1>
-      <p class="tagline">BTech CSE student • building thoughtful software & experiments</p>
-      <div class="ctas">
-        <a href="#projects" class="btn">Projects</a>
-        <a href="#contact" class="btn ghost">Contact</a>
+  <main class="page" id="pageRoot">
+    <div class="card" role="region" aria-labelledby="question-heading">
+      <div class="top-controls" aria-hidden="false">
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle light and dark mode">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M5 5l-1.5-1.5M20.5 20.5 19 19M19 5l1.5-1.5M4.5 19.5 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </button>
       </div>
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">☾</button>
+
+      <h1 id="question-heading" class="heading">Do you want to be my girlfriend?</h1>
+      <p class="subtle">Pick one — but the page is feeling hopeful 💖</p>
+
+      <div class="buttons" role="group" aria-label="Answer choices">
+        <button id="yesBtn" class="btn btn-yes" type="button">Yes</button>
+        <button id="noBtn" class="btn btn-no" type="button">No</button>
+      </div>
+
+      <!-- ARIA live region for screen readers (polite) -->
+      <div id="announce" class="sr-only" aria-live="polite"></div>
+
+      <footer class="footer">Made with love 💖</footer>
     </div>
-  </header>
-
-  <main class="container">
-    <section id="about" class="card">
-      <h2>About</h2>
-      <p>I'm a BTech Computer Science student interested in systems, full-stack projects and algorithms. I build small tools and open-source projects — I love making things that are useful and well-designed.</p>
-      <p><strong>Education:</strong> BTech (Computer Science). <strong>Interests:</strong> CS, ML, web apps, embedded systems.</p>
-    </section>
-
-    <section id="projects" class="card">
-      <h2>Featured projects</h2>
-      <div class="projects-grid">
-        <article class="project">
-          <h3>Planetary Orbit Simulator</h3>
-          <p>Interactive sim of two-body and n-body motion. Built with Python + Pygame (desktop demo) and a JS canvas version.</p>
-          <p class="tech">Python · JavaScript · Physics</p>
-          <a href="https://github.com/yourusername/planetary-orbit-sim" target="_blank">GitHub →</a>
-        </article>
-
-        <article class="project">
-          <h3>ASL Interpreter (Two-Way)</h3>
-          <p>Real-time sign-language recogniser using OpenCV + custom model. Converts gestures → text and text → ASL animation.</p>
-          <p class="tech">Python · ML · OpenCV</p>
-          <a href="https://github.com/yourusername/asl-interpreter" target="_blank">GitHub →</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="skills" class="card">
-      <h2>Skills & tools</h2>
-      <p class="chips">Python • JavaScript • HTML/CSS • React • Git • Linux • PyTorch</p>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:aditya@example.com">aditya@example.com</a></p>
-      <p>GitHub: <a href="https://github.com/yourusername">github.com/yourusername</a></p>
-    </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">© <span id="year"></span> Aditya Panda — Built with ❤️</div>
-  </footer>
+  <!-- Fullscreen confetti canvas (covers viewport) -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
+  <!-- Fullscreen celebration overlay (hidden until triggered) -->
+  <div id="celebration" class="celebration-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="celebrateText">
+
+    <!-- decorative floating svgs -->
+    <div class="decor decor--a" aria-hidden="true">
+      <!-- flower -->
+      <svg width="84" height="84" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(50,50)">
+          <circle r="10" fill="#FFD1DC"></circle>
+          <g fill="#FF7AA2">
+            <ellipse rx="18" ry="9" transform="rotate(0) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(45) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(90) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(135) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(180) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(225) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(270) translate(34,0)"></ellipse>
+            <ellipse rx="18" ry="9" transform="rotate(315) translate(34,0)"></ellipse>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="decor decor--b" aria-hidden="true">
+      <!-- heart -->
+      <svg width="72" height="72" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M23.6 0C20.4 0 17.6 1.9 16 4.6 14.4 1.9 11.6 0 8.4 0 3.8 0 0 3.8 0 8.4c0 4.4 3.4 7.9 8.6 12.4L16 29.6l7.4-8.8C28.6 16.3 32 12.8 32 8.4 32 3.8 28.2 0 23.6 0z" fill="#FF9FB5"/>
+      </svg>
+    </div>
+
+    <div class="decor decor--c" aria-hidden="true">
+      <!-- small flower -->
+      <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(50,50)">
+          <circle r="7" fill="#FFF1F4"></circle>
+          <g fill="#FFB6C1">
+            <ellipse rx="12" ry="6" transform="rotate(0) translate(22,0)"></ellipse>
+            <ellipse rx="12" ry="6" transform="rotate(90) translate(22,0)"></ellipse>
+            <ellipse rx="12" ry="6" transform="rotate(180) translate(22,0)"></ellipse>
+            <ellipse rx="12" ry="6" transform="rotate(270) translate(22,0)"></ellipse>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- centre popping message -->
+    <div class="celebrate-card" role="document">
+      <h2 id="celebrateText" class="celebrate-text" tabindex="-1">Yippieeee!</h2>
+    </div>
+
+    <!-- Countdown + heart pop -->
+    <div class="countdown" id="countdown" aria-hidden="true" aria-live="polite" aria-atomic="true">
+      <div class="heart-wrap" id="heartWrap" aria-hidden="true">
+        <!-- heart SVG that will grow and pop -->
+        <svg id="popHeart" class="pop-heart" viewBox="0 0 32 29.6" width="160" height="150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M23.6 0C20.4 0 17.6 1.9 16 4.6 14.4 1.9 11.6 0 8.4 0 3.8 0 0 3.8 0 8.4c0 4.4 3.4 7.9 8.6 12.4L16 29.6l7.4-8.8C28.6 16.3 32 12.8 32 8.4 32 3.8 28.2 0 23.6 0z" fill="#ff6f98"/>
+        </svg>
+      </div>
+      <div class="count-display" id="countDisplay" aria-hidden="true">3</div>
+      <div class="count-note" id="countNote" aria-hidden="true">Opening letter in <span id="countAnnounce">3</span></div>
+    </div>
+  </div>
+
+  <!-- Behaviour script -->
   <script src="script.js"></script>
 </body>
 </html>
