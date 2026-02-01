@@ -1,0 +1,109 @@
+/* letter.css - cute pink love palette for the letter page */
+
+:root{
+  --bg: #fff6fb;
+  --card: #fff3f8;
+  --accent: #ff6f98;
+  --accent-soft: #ffd9e6;
+  --text: #6b2137;
+  --muted: #8a616f;
+}
+
+* { box-sizing: border-box; }
+html, body { height:100%; margin:0; font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial; background: linear-gradient(180deg, #fff8fc 0%, #fff6fb 100%); color: var(--text); }
+
+.letter-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.letter-card {
+  max-width: 780px;
+  width: 100%;
+  background: linear-gradient(180deg, var(--card), #fffafc);
+  border-radius: 18px;
+  padding: 2.2rem;
+  box-shadow: 0 12px 40px rgba(120,70,100,0.08);
+  position: relative;
+  border: 1px solid rgba(255, 180, 200, 0.25);
+}
+
+.title {
+  margin: 0 0 1rem 0;
+  font-size: 2.1rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.letter-body p {
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.closing {
+  margin-top: 1.25rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* subtle decorative hearts in corners using pseudo elements */
+.letter-card::before,
+.letter-card::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  background: radial-gradient(circle at 30% 30%, var(--accent-soft), transparent 35%);
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 0;
+}
+.letter-card::before {
+  left: -30px;
+  top: -40px;
+  transform: rotate(-10deg);
+}
+.letter-card::after {
+  right: -30px;
+  bottom: -40px;
+  transform: rotate(18deg);
+}
+
+/* place content above decorations */
+.letter-body, .title, .actions { position: relative; z-index: 1; }
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(180deg, var(--accent), #ff9fb5);
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(130,60,90,0.12);
+}
+
+.btn-back:focus,
+.btn-back:hover {
+  transform: translateY(-3px);
+  transition: transform .18s ease;
+}
+
+/* responsive */
+@media (max-width: 520px) {
+  .letter-card { padding: 1.25rem; border-radius: 14px; }
+  .title { font-size: 1.5rem; }
+  .letter-body p { font-size: 1rem; }
+}
